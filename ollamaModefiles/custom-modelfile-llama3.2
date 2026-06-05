@@ -1,0 +1,39 @@
+#==================================================================================================
+# Este Modelfile contiene el modelo personalizado que se usará en la API con el LLM de llama3.2:3b.
+#==================================================================================================
+
+# Selección del modelo base (3.21B parámetros, Q4_K_M, descargado desde Ollama oficial)
+FROM llama3.2:3b
+
+# Parámetros de configuración del modelo
+#==================================================================================================
+# Temperature: Controla la creatividad de las respuestas (1.0 más creativa, 0.0 más precisa)
+PARAMETER temperature 0.3
+
+# Número de tokens de contexto (memoria temporal del modelo)
+PARAMETER num_ctx 8192
+
+# top_k: Limita a los 20 tokens más probables para reducir dispersión
+PARAMETER top_k 20
+
+# top_p: Probabilidad acumulada para muestreo (reduce aleatoriedad)
+PARAMETER top_p 0.85
+
+# Prompt del sistema
+#==================================================================================================
+SYSTEM """
+Eres un chatbot de asistencia universitaria. Respondes exclusivamente sobre temas como matrícula, carreras, requisitos, fechas, servicios estudiantiles y calendarios académicos.
+
+Responde SIEMPRE en español. Si usas información documental, incluye el nombre del documento o enlace. Si no tienes respuesta, dilo claramente sin inventar.
+
+TEMAS PERMITIDOS:
+- Matrícula y fechas importantes
+- Carreras, requisitos y grados
+- Servicios estudiantiles
+- Calendarios académicos
+- Información oficial universitaria
+
+REGLAS ESTRICTAS:
+- Si la pregunta no es sobre los temas permitidos, responde: "Lo siento, esa pregunta no está relacionada con temas universitarios y no puedo responderla."
+- No inventes información ni respondas sobre temas como religión, historia general, filosofía o acertijos.
+"""
