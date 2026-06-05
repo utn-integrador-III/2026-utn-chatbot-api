@@ -1,85 +1,207 @@
-## Implementación de PY 🚀
 
-# Creacion del entorno virtual 
-1. Antes de iniciar, asegúrate de tener instalado y selecionado el entorno en tu maquina.
-- Abrir una nueva terminal desde tu IDE
-    * cd backend 
-    * python -m venv env_chatbot
-    * .\env_chatbot\Scripts\activate
-    * pip install -r "ruta donde se encuentra el requirements.txt" 
-        * Ejemplo: D:\Universidad_UTN\2025\Segundo_Cuatri\Proyecto_Integrador\chatbot-utn-pi\requirements.txt
-    * deactivate
+# Descripción del proyecto
 
-# Configuración local de la API ⚙️ 
-Sigue los siguientes pasos para ejecutar la API de forma local correctamente:
-1. Configurar las URLs del servidor Ollama
-Debes actualizar las siguientes variables con la dirección IP correspondiente al servidor donde se ejecuta Ollama (en nuestro caso, test_chatbot_1.0.1):
-- OLLAMA_URL = "http://<IP_DEL_SERVIDOR>:11434/api/chat"
-- OLLAMA_URL_CHAT = "http://<IP_DEL_SERVIDOR>:11434/api/generate"
-Importante: Asegúrate de reemplazar <IP_DEL_SERVIDOR> con la IP real donde está corriendo Ollama.
+## NOVA - ChatBot Universitario
 
-2. Configurar los modelos de lenguaje (LLM)
-La API está preparada para usar hasta cuatro modelos. Estos están definidos en las siguientes variables:
-- OLLAMA_MODEL = "custom-modelfile-mistral"
-- OLLAMA_MODEL2 = "mistral"
-- OLLAMA_MODEL3 = "llama3.2"
-- OLLAMA_MODEL4 = "custom-modelfile-llama3b"
-Puedes cambiar los modelos si lo consideras necesario, pero no es obligatorio para la ejecución básica.
+NOVA es un chatbot orientado a brindar respuestas y asistencia a consultas universitaras de la UTN.  
+El proyecto en la parte del backend está desarrollado completamente en **Python** y utiliza tecnologías de inteligencia artificial local para el procesamiento y generación de respuestas.
 
-3. Para ejecutar la API de forma local, es necesario crear un entorno virtual. Sigue las instrucciones indicadas en la sección "Creación del entorno virtual" de este repositorio.
+La arquitectura del sistema se basa en:
 
-4. Documentacion de la API Flask del ChatBot
-- https://documenter.getpostman.com/view/45666071/2sB3B8sDiw 
+- **Ollama** como servidor de modelos LLM locales.
+- **LangChain** para la gestión del flujo conversacional y la integración con los modelos de inteligencia artificial.
+- **Flask** como backend principal de la API.
 
+---
 
-# 📘 Api Ollama
-- Referencia: https://github.com/ollama/ollama/blob/main/docs/api.md 
+## Funcionamiento general
 
-# Info Extra de la api de Ollama
-**Response:**
+El funcionamiento del proyecto se basa en una arquitectura cliente-servidor donde la API desarrollada en Python se comunica con un servidor Ollama encargado de ejecutar los modelos de lenguaje de manera local.
 
-## /api/generate - Generación simple
-**Descripción**
-Este endpoint es para enviar un prompt directo a un modelo (como mistral) y recibir una respuesta textual. No guarda contexto, ni estructura tipo chat.
+### Flujo general del sistema
 
-**¿Cuándo usar /api/generate?**
-Cuando quieres una sola respuesta directa, sin seguimiento.
-Cuando no necesitas un historial de conversación.
-Ideal para preguntas sueltas o generación puntual de texto.
+1. El usuario realiza una consulta al chatbot NOVA.
+2. La API Flask recibe la solicitud.
+3. LangChain procesa el contexto y administra la interacción con el modelo.
+4. La consulta es enviada al servidor Ollama.
+5. Ollama ejecuta el modelo LLM configurado.
+6. La respuesta generada retorna a la API.
+7. Finalmente, NOVA devuelve la respuesta al usuario.
 
-**Ejemplo de solicitud (POST a http://localhost:11434/api/generate):**
+---
+
+## Tecnologías utilizadas
+
+| Tecnología | Función |
+|------------|----------|
+| Python | Backend principal del proyecto |
+| Flask | Desarrollo de la API REST |
+| Ollama | Ejecución local de modelos LLM |
+| LangChain | Gestión del flujo conversacional e integración con IA |
+| ChromaDB | Almacenamiento y consultas vectoriales |
+---
+
+# Implementación de PY
+
+# Creación del entorno virtual
+
+Antes de iniciar, asegúrate de tener instalado y seleccionado Python correctamente en tu máquina.
+
+## Pasos para crear y activar el entorno virtual
+
+1. Abrir una nueva terminal desde tu IDE.
+2. Ejecutar los siguientes comandos:
+
+```bash
+python -m venv env_chatbot
+````
+
+```bash
+.\env_chatbot\Scripts\activate
+```
+
+```bash
+pip install -r "ruta donde se encuentra el requirements.txt"
+```
+
+## Desactivar el entorno virtual
+
+```bash
+deactivate
+```
+
+---
+
+# Configuración local de la API
+
+Sigue los siguientes pasos para ejecutar la API de forma local correctamente.
+
+---
+
+## 1. Configuración del servidor Ollama
+
+La API utiliza un servidor Ollama para la ejecución de modelos de inteligencia artificial de forma local.
+
+Es importante verificar y actualizar la dirección IP del servidor Ollama dentro de la configuración del proyecto para asegurar una comunicación correcta entre la API y el servidor de modelos.
+
+> **Importante:**  
+> Asegúrate de utilizar la IP correcta del servidor donde se encuentra ejecutándose Ollama.
+
+---
+
+## 2. Configuración de modelos LLM
+
+El proyecto permite trabajar con distintos modelos de lenguaje configurables desde el backend.
+
+Puedes utilizar los modelos predeterminados del proyecto o modificarlos según las necesidades de implementación y disponibilidad en el servidor Ollama.
+
+---
+
+## 3. Crear el entorno virtual
+
+Para ejecutar la API de forma local, es necesario crear un entorno virtual.
+
+Sigue las instrucciones indicadas en la sección:
+
+- **Creación del entorno virtual**
+
+---
+
+## 4. Documentación de la API Flask del ChatBot
+
+* https://documenter.getpostman.com/view/45666071/2sB3B8sDiw
+
+---
+
+# API Ollama
+
+## Referencia oficial
+
+* https://github.com/ollama/ollama/blob/main/docs/api.md
+
+---
+
+# Información extra de la API de Ollama
+
+## Response
+
+---
+
+# `/api/generate` - Generación simple
+
+## Descripción
+
+Este endpoint es para enviar un prompt directo a un modelo (como `mistral`) y recibir una respuesta textual.
+
+No guarda contexto, ni estructura tipo chat.
+
+---
+
+## ¿Cuándo usar `/api/generate`?
+
+* Cuando quieres una sola respuesta directa, sin seguimiento.
+* Cuando no necesitas un historial de conversación.
+* Ideal para preguntas sueltas o generación puntual de texto.
+
+---
+
+## Ejemplo de solicitud
+
+**POST →** `http://localhost:11434/api/generate`
+
+```json
 {
   "model": "mistral",
   "prompt": "Explica qué es un sistema operativo",
   "stream": false
 }
+```
 
-**Ejemplo de respuesta (si stream: false):**
+---
+
+## Ejemplo de respuesta (`stream: false`)
+
+```json
 {
   "response": "Un sistema operativo es un software que gestiona los recursos de hardware y software...",
   "done": true
 }
+```
 
-**Campos importantes:**
-Campo      | Descripción
------------|---------------------------------------------------------------
-model      | Nombre del modelo a usar (ej: "mistral")
-prompt     | Texto que el usuario quiere que el modelo procese
-stream     | true para recibir respuesta por partes (útil para mostrar letra por letra),
-           | false para una sola respuesta completa
-options    | (Opcional) Parámetros avanzados como: temperature, top_k, top_p, stop, etc.
+---
 
+## Campos importantes
 
-## /api/chat – Conversación estructurada con contexto
-**Descripción**
-Este endpoint es para simular un chat tipo conversación: el modelo puede recordar lo que se dijo anteriormente en el mismo intercambio.
+| Campo   | Descripción                                                                         |
+| ------- | ----------------------------------------------------------------------------------- |
+| model   | Nombre del modelo a usar (ej: `"mistral"`)                                          |
+| prompt  | Texto que el usuario quiere que el modelo procese                                   |
+| stream  | `true` para recibir respuesta por partes (útil para mostrar letra por letra)        |
+| options | (Opcional) Parámetros avanzados como: `temperature`, `top_k`, `top_p`, `stop`, etc. |
 
-**¿Cuándo usar /api/chat?**
-Cuando construyes una interfaz de conversación más allá de un contexto.
-Cuando necesitas respuestas más coherentes a lo largo del tiempo.
-Cuando deseas mantener el contexto entre turnos del usuario y del modelo.
+---
 
-**Ejemplo de solicitud:**
+# `/api/chat` – Conversación estructurada con contexto
+
+## Descripción
+
+Este endpoint es para simular un chat tipo conversación.
+
+El modelo puede recordar lo que se dijo anteriormente en el mismo intercambio.
+
+---
+
+## ¿Cuándo usar `/api/chat`?
+
+* Cuando construyes una interfaz de conversación más allá de un contexto.
+* Cuando necesitas respuestas más coherentes a lo largo del tiempo.
+* Cuando deseas mantener el contexto entre turnos del usuario y del modelo.
+
+---
+
+## Ejemplo de solicitud
+
+```json
 {
   "model": "mistral",
   "messages": [
@@ -90,8 +212,13 @@ Cuando deseas mantener el contexto entre turnos del usuario y del modelo.
   ],
   "stream": false
 }
+```
 
-**Ejemplo de respuesta:**
+---
+
+## Ejemplo de respuesta
+
+```json
 {
   "message": {
     "role": "assistant",
@@ -99,10 +226,16 @@ Cuando deseas mantener el contexto entre turnos del usuario y del modelo.
   },
   "done": true
 }
+```
 
-**Campos importantes**
-Rol         | Función
-------------|--------------------------------------------------------------
-system      | Define el comportamiento general del modelo (como el "System" en un Modelfile)
-user        | Representa las preguntas del usuario
-assistant   | Representa respuestas anteriores del modelo (importante para mantener el contexto)
+---
+
+## Campos importantes
+
+| Rol       | Función                                                                            |
+| --------- | ---------------------------------------------------------------------------------- |
+| system    | Define el comportamiento general del modelo (como el `"System"` en un Modelfile)   |
+| user      | Representa las preguntas del usuario                                               |
+| assistant | Representa respuestas anteriores del modelo (importante para mantener el contexto) |
+
+---

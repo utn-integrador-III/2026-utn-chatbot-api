@@ -1,0 +1,13 @@
+flask
+flask_cors
+requests
+langchain[all]
+langchain-community
+chromadb
+langchain-ollama
+langchain_chroma
+PyMuPDF
+reportlab
+rank-bm25
+PyJWT
+pydantic[email]
