@@ -1,6 +1,6 @@
 ## database.py
 
-1.Instalar dependencias (psycopg[binary], psycopg-pool y pgvector)
+1.Install dependences (psycopg[binary], psycopg-pool y pgvector)
 
     pip install "psycopg[binary]" psycopg-pool pgvector
 
@@ -11,11 +11,6 @@
 
 ## ollama.py
 
-1.Instalar dependencia
+1.Install dependence
 
     pip install langchain-ollama
-
-
-## settings.py
-
-1.Instalar dependencia
