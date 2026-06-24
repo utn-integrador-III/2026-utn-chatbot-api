@@ -148,6 +148,7 @@ activemq-data/
 *.sage.py
 
 # Environments
+env_chatbot/
 .env
 .envrc
 .venv
