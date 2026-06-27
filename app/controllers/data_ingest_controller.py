@@ -14,7 +14,7 @@ NO contiene logica de negocio: solo valida la entrada y delega.
 
 from flask import jsonify, request
 
-from app.services import data_ingest_service
+from services import data_ingest_service
 
 
 def add_pdf():

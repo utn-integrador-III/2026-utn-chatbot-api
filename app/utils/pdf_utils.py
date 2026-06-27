@@ -12,19 +12,7 @@ import fitz  # PyMuPDF
 
 
 def extract_text_from_pdf(filepath: str) -> tuple[str, int]:
-    """
-    Extrae todo el texto de un PDF manteniendo separacion por pagina.
-
-    Retorna una tupla:
-        full_text   : str → texto completo con marcadores de pagina
-        total_pages : int → total de paginas del documento
-
-    Cada pagina se antepone con "--- Pagina N ---" para que el splitter
-    pueda usar esos saltos como separadores semanticos.
-
-    Si una pagina no tiene texto extraible, se omite (no se incluye
-    el marcador), igual que en el original.
-    """
+    
     try:
         doc = fitz.open(filepath)
         full_text = ""
@@ -46,7 +34,6 @@ def extract_text_from_pdf(filepath: str) -> tuple[str, int]:
 
 
 def count_pages(filepath: str) -> int:
-    """Retorna el total de paginas de un PDF sin extraer texto."""
     try:
         doc = fitz.open(filepath)
         count = len(doc)

@@ -24,7 +24,6 @@ class Chunk:
 
     @staticmethod
     def from_row(row: dict) -> "Chunk":
-        """Construye un Chunk a partir de una fila de psycopg (dict_row)."""
         return Chunk(
             id=str(row["id"]),
             pdf_id=str(row["pdf_id"]),

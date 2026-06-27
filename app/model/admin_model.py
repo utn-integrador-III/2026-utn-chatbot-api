@@ -23,7 +23,6 @@ class Admin:
 
     @staticmethod
     def from_row(row: dict) -> "Admin":
-        """Construye un Admin a partir de una fila de psycopg (dict_row)."""
         return Admin(
             id=str(row["id"]),
             full_name=row["full_name"],

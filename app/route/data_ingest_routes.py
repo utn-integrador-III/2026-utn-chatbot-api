@@ -11,8 +11,8 @@ Las rutas protegidas requieren JWT valido (jwt_middleware).
 
 from flask import Blueprint
 
-from app.controllers.data_ingest_controller import add_pdf, list_pdfs
-from app.middleware.jwt_middleware import jwt_required
+from controllers.data_ingest_controller import add_pdf, list_pdfs
+from middleware.jwt_middleware import jwt_required
 
 data_ingest_bp = Blueprint("data_ingest", __name__)
 
