@@ -23,9 +23,9 @@ data_ingest_bp.add_url_rule(
     methods=["POST"],
 )
 
-# GET /add_pdf: lista los PDFs indexados (protegido tambien por JWT)
+# GET /list_pdfs: lista los PDFs indexados (protegido tambien por JWT)
 data_ingest_bp.add_url_rule(
-    "/add_pdf",
+    "/list_pdfs",
     view_func=jwt_required(list_pdfs),
     methods=["GET"],
 )
