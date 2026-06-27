@@ -5,7 +5,7 @@ Acceso a la tabla `pdfs`. Todo el SQL de documentos PDF vive aqui.
 
 from psycopg.rows import dict_row
 
-from app.config.database import get_connection
+from config.database import get_connection
 from app.models.pdf_model import Pdf
 
 
@@ -16,11 +16,6 @@ def save_pdf(
     total_pages: int | None = None,
     total_chunks: int | None = None,
 ) -> Pdf:
-    """
-    Inserta un nuevo registro de PDF y retorna el objeto Pdf creado.
-    uploaded_user es el UUID del admin que lo subio; puede ser None
-    para datos migrados desde ChromaDB.
-    """
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
@@ -37,10 +32,6 @@ def save_pdf(
 
 
 def update_pdf_chunks(pdf_id: str, total_chunks: int) -> None:
-    """
-    Actualiza el total de chunks de un PDF una vez que el proceso
-    de ingestión termina de dividir y guardar todos los fragmentos.
-    """
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
@@ -51,11 +42,6 @@ def update_pdf_chunks(pdf_id: str, total_chunks: int) -> None:
 
 
 def find_pdf_by_filepath(filepath: str) -> Pdf | None:
-    """
-    Busca un PDF ya existente por su ruta en disco.
-    Se usa durante la migracion desde ChromaDB para no duplicar
-    registros si el script se corre mas de una vez.
-    """
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(

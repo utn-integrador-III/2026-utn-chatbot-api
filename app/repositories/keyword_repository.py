@@ -6,16 +6,11 @@ que ChromaDB guardaba en metadatos por filas normalizadas.
 
 from psycopg.rows import dict_row
 
-from app.config.database import get_connection
+from config.database import get_connection
 from app.models.keyword_model import Keyword
 
 
 def save_keywords(chunk_id: str, keywords: list[str]) -> list[Keyword]:
-    """
-    Guarda una lista de keywords asociadas a un chunk.
-    Filtra strings vacios antes de insertar.
-    Retorna los objetos Keyword creados.
-    """
     clean = [k.strip() for k in keywords if k and k.strip()]
     if not clean:
         return []
@@ -40,9 +35,6 @@ def save_keywords(chunk_id: str, keywords: list[str]) -> list[Keyword]:
 
 
 def find_keywords_by_chunk(chunk_id: str) -> list[str]:
-    """
-    Retorna las palabras clave de un chunk como lista de strings.
-    """
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
@@ -54,11 +46,6 @@ def find_keywords_by_chunk(chunk_id: str) -> list[str]:
 
 
 def find_keywords_by_pdf(pdf_id: str) -> list[dict]:
-    """
-    Retorna todas las keywords de todos los chunks de un PDF,
-    junto con el chunk_id al que pertenecen.
-    Util para construir resumen de metadatos del PDF.
-    """
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
