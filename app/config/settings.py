@@ -4,6 +4,7 @@ app/config/settings.py
 """
 
 import os
+from dotenv import load_dotenv
 
 
 # =========================
@@ -12,21 +13,13 @@ import os
 
 # Clave utilizada para crear y validar tokens JWT.
 # En producción debe configurarse mediante variable de entorno.
-JWT_SECRET = os.environ.get(
-    "JWT_SECRET",
-    "cambia_este_secreto_en_produccion"
-)
-
-JWT_ALGORITHM = os.environ.get(
-    "JWT_ALGORITHM",
-    "HS256"
-)
-
-# Tiempo de expiración del token en horas.
-JWT_EXP_HOURS = int(
-    os.environ.get("JWT_EXP_HOURS", "8")
-)
-
+load_dotenv()
+ 
+JWT_SECRET             = os.environ["JWT_SECRET"]              # Falla si no está definida
+JWT_ALGORITHM          = os.getenv("JWT_ALGORITHM", "HS256")
+JWT_EXPIRATION_MINUTES = int(os.getenv("JWT_EXPIRATION_MINUTES", 60))
+ 
+DATABASE_URL = os.environ["DATABASE_URL"]
 
 # =========================
 # Archivos PDF
