@@ -11,3 +11,8 @@ reportlab
 rank-bm25
 PyJWT
 pydantic[email]
+psycopg[binary] 
+psycopg-pool 
+pgvector
+langchain-text-splitters
+python-dotenv
