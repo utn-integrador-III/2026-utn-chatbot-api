@@ -5,7 +5,7 @@ Acceso a la tabla `pdfs`. Todo el SQL de documentos PDF vive aqui.
 
 from psycopg.rows import dict_row
 
-from config.database import get_connection
+from app.config.database import get_connection
 from app.models.pdf_model import Pdf
 
 

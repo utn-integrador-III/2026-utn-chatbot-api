@@ -44,9 +44,9 @@ UPLOAD_FOLDER = os.environ.get(
 )
 
 
-# =========================
+# ===========================
 # Procesamiento de documentos
-# =========================
+# ===========================
 
 # Tamaño de los fragmentos de texto generados
 # antes de crear los embeddings.
