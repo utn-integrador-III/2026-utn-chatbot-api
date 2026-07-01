@@ -9,11 +9,6 @@ from datetime import datetime
 
 @dataclass
 class Pdf:
-    """
-    Refleja exactamente las columnas de la tabla pdfs.
-    uploaded_user puede ser None si el admin fue eliminado
-    (la FK tiene ON DELETE SET NULL).
-    """
     id:            str
     filename:      str
     filepath:      str
@@ -24,7 +19,6 @@ class Pdf:
 
     @staticmethod
     def from_row(row: dict) -> "Pdf":
-        """Construye un Pdf a partir de una fila de psycopg (dict_row)."""
         return Pdf(
             id=str(row["id"]),
             filename=row["filename"],

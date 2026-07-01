@@ -37,16 +37,6 @@ def save_chunk(
 
 
 def save_chunks_batch(pdf_id: str, chunks: list[dict]) -> list[Chunk]:
-    """
-    Version en lote de save_chunk: inserta todos los chunks de un PDF
-    en una sola transaccion. Si falla a mitad, Postgres revierte todo.
-    
-    Cada dict en `chunks` debe tener:
-        chunk_text  : str
-        embedding   : list[float]
-        chunk_index : int
-        page_ref    : str | None  (opcional)
-    """
     saved: list[Chunk] = []
 
     with get_connection() as conn:
@@ -73,16 +63,7 @@ def save_chunks_batch(pdf_id: str, chunks: list[dict]) -> list[Chunk]:
 
 
 def search_similar_chunks(query_embedding: list[float], limit: int = 5) -> list[dict]:
-    """
-    Busca los chunks mas similares semanticamente usando el operador
-    de distancia coseno <=> de pgvector.
 
-    Llamado por main_service.py en el flujo de /savechat, despues de
-    generar el embedding de la pregunta del usuario.
-
-    Retorna dicts con las columnas de document_chunks mas el nombre
-    del PDF (source) y la distancia coseno calculada.
-    """
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(

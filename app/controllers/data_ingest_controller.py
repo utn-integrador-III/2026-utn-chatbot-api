@@ -1,20 +1,11 @@
 """
 app/controllers/data_ingest_controller.py
 Controlador del endpoint POST /add_pdf.
-
-Responsabilidades:
-    - Leer el archivo del request (request.files)
-    - Leer el admin_id del JWT (inyectado por jwt_middleware)
-    - Validar que el archivo sea un PDF y que venga en la peticion
-    - Delegar el procesamiento a data_ingest_service.py
-    - Retornar la respuesta HTTP adecuada
-
-NO contiene logica de negocio: solo valida la entrada y delega.
 """
 
 from flask import jsonify, request
 
-from app.services import data_ingest_service
+from services import data_ingest_service
 
 
 def add_pdf():
@@ -68,7 +59,7 @@ def add_pdf():
 
 def list_pdfs():
     """
-    Maneja GET /add_pdf.
+    Maneja GET /list_pdfs.
     Retorna la lista de todos los PDFs indexados en el sistema.
     """
     try:
