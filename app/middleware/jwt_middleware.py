@@ -7,7 +7,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify
 from config.settings import JWT_SECRET, JWT_ALGORITHM
-from app.services.token_blacklist_service import is_token_revoked
+from services.token_blacklist_service import is_token_revoked
 
 
 # ──────────────────────────────────────────────

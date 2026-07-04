@@ -5,8 +5,8 @@ Acceso a la tabla `pdfs`. Todo el SQL de documentos PDF vive aqui.
 
 from psycopg.rows import dict_row
 
-from app.config.database import get_connection
-from app.models.pdf_model import Pdf
+from config.database import get_connection
+from model.pdf_model import Pdf
 
 
 def save_pdf(
