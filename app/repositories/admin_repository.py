@@ -4,7 +4,7 @@ Acceso a la tabla `admins`. Todo el SQL de administradores vive aquí.
 """
 from psycopg.rows import dict_row
 from config.database import get_connection
-from app.models.admin_model import Admin, AdminRole
+from model.admin_model import Admin, AdminRole
 
 # ──────────────────────────────────────────────
 # ESCRITURA

@@ -4,8 +4,8 @@ Capa HTTP para autenticación. Solo gestiona request/response.
 Toda la lógica de negocio vive en login_service.py.
 """
 from flask import request, jsonify
-from app.services import login_service
-from app.middleware.jwt_middleware import is_self_or_super_admin
+from services import login_service
+from middleware.jwt_middleware import is_self_or_super_admin
 
 
 # ──────────────────────────────────────────────

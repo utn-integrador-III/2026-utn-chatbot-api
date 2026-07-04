@@ -11,9 +11,9 @@ import bcrypt
 import jwt
 
 from config.settings import JWT_SECRET, JWT_ALGORITHM, JWT_EXPIRATION_MINUTES
-from app.models.admin_model import Admin, AdminRole
-from app.repositories import admin_repository as repo
-from app.services.token_blacklist_service import revoke_token
+from model.admin_model import Admin, AdminRole
+from repositories import admin_repository as repo
+from services.token_blacklist_service import revoke_token
 
 
 # ──────────────────────────────────────────────

@@ -1,5 +1,5 @@
 from flask import request, jsonify, abort
-from services.main_service import process_chat, refresh_bm25
+from services.main_service import process_chat
 
 
 def save_chat():
@@ -18,20 +18,6 @@ def save_chat():
         result = process_chat(user_prompt)
     except Exception as e:
         print(f"[main_controller] Error en process_chat: {e}")
-        abort(500)
-
-    return jsonify(result)
-
-
-def refresh_bm25_index():
-    """
-    POST /refresh_bm25
-    Reconstruye el índice BM25 y el EnsembleRetriever con los documentos actuales de Chroma.
-    """
-    try:
-        result = refresh_bm25()
-    except Exception as e:
-        print(f"[main_controller] Error en refresh_bm25: {e}")
         abort(500)
 
     return jsonify(result)
