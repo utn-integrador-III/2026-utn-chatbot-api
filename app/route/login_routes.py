@@ -4,8 +4,8 @@ Define las rutas del módulo de autenticación (puerto 7005).
 Aplica los middlewares correspondientes a cada endpoint.
 """
 from flask import Blueprint
-from app.controllers.login_controller import signup, login, logout, delete_user
-from app.middleware.jwt_middleware import jwt_required, roles_required
+from controllers.login_controller import signup, login, logout, delete_user
+from middleware.jwt_middleware import jwt_required, roles_required
 
 auth_bp = Blueprint("auth", __name__)
 

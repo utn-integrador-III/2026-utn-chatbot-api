@@ -6,8 +6,8 @@ busquedas semanticas con pgvector vive aqui.
 
 from psycopg.rows import dict_row
 
-from app.config.database import get_connection
-from app.models.chunk_model import Chunk
+from config.database import get_connection
+from model.chunk_model import Chunk
 
 
 def save_chunk(

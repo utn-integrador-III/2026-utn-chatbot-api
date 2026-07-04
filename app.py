@@ -7,16 +7,16 @@ from flask import Flask
 from flask_cors import CORS
 
 from app.config.settings import FLASK_PORT
-from app.routes.login_routes import login_bp
-from app.routes.main_routes import main_bp
-from app.routes.data_ingest_routes import data_ingest_bp
+from app.route.login_routes import login_bp
+from app.route.main_routes import main_bp
+from app.route.data_ingest_routes import data_ingest_bp
 
 
 def create_app() -> Flask:
     app = Flask(__name__)
 
     CORS(app)
-
+    
     # Registrar blueprints
     app.register_blueprint(login_bp)
     app.register_blueprint(main_bp)

@@ -4,7 +4,6 @@ Controlador del endpoint POST /add_pdf.
 """
 
 from flask import jsonify, request
-
 from services import data_ingest_service
 
 
