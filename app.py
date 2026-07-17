@@ -3,6 +3,17 @@ app.py
 Punto de entrada principal de la API.
 """
 
+import sys
+import os
+
+# Agrega la carpeta app/ al sys.path para que los imports "cortos"
+# (controllers.xxx, services.xxx, middleware.xxx, etc.) funcionen
+# tal como están escritos en los archivos internos del proyecto.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "app"))
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask
 from flask_cors import CORS
 
