@@ -20,7 +20,7 @@ def save_pdf(
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
                 """
-                INSERT INTO pdfs (uploaded_user, filename, filepath, total_pages, total_chunks)
+                INSERT INTO pdfs (uploaded_by, filename, filepath, total_pages, total_chunks)
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING *;
                 """,

@@ -25,7 +25,7 @@ def create_admin(
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
                 """
-                INSERT INTO admins (full_name, user_name, email, password, role)
+                INSERT INTO admins (full_name, user_name, email, password_hash, role)
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING *;
                 """,

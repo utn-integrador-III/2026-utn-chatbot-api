@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 # En producción debe configurarse mediante variable de entorno.
 load_dotenv()
  
-JWT_SECRET             = os.environ["JWT_SECRET"]              # Falla si no está definida
+JWT_SECRET             = os.environ["JWT_SECRET"] # Falla si no está definida
 JWT_ALGORITHM          = os.getenv("JWT_ALGORITHM", "HS256")
 JWT_EXPIRATION_MINUTES = int(os.getenv("JWT_EXPIRATION_MINUTES", 60))
  
