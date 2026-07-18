@@ -1,6 +1,6 @@
 """
 app/config/settings.py
-
+-
 """
 
 import os

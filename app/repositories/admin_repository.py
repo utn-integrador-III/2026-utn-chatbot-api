@@ -1,6 +1,7 @@
 """
 app/repositories/admin_repository.py
 Acceso a la tabla `admins`. Todo el SQL de administradores vive aquí.
+-
 """
 from psycopg.rows import dict_row
 from config.database import get_connection

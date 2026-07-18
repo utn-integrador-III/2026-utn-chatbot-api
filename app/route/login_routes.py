@@ -2,6 +2,7 @@
 app/routes/login_routes.py
 Define las rutas del módulo de autenticación (puerto 7005).
 Aplica los middlewares correspondientes a cada endpoint.
+-
 """
 from flask import Blueprint
 from controllers.login_controller import signup, login, logout, delete_user
