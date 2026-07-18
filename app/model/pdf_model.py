@@ -23,7 +23,7 @@ class Pdf:
             id=str(row["id"]),
             filename=row["filename"],
             filepath=row["filepath"],
-            uploaded_user=str(row["uploaded_user"]) if row.get("uploaded_user") else None,
+            uploaded_user=str(row["uploaded_by"]) if row.get("uploaded_by") else None,
             total_pages=row.get("total_pages"),
             total_chunks=row.get("total_chunks"),
             uploaded_at=row.get("uploaded_at"),
