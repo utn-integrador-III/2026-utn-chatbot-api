@@ -19,7 +19,7 @@ login_bp = Blueprint("login", __name__)
 # Por ahora es público para permitir el primer registro del sistema.
 login_bp.add_url_rule(
     "/signup",
-    view_func=signup,
+    view_func=jwt_required(roles_required("super_admin")(signup)),
     methods=["POST"],
 )
 
