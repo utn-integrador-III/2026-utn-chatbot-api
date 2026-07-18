@@ -11,11 +11,11 @@ from psycopg_pool import ConnectionPool
 
 # Configuración de conexión obtenida desde variables de entorno
 # Si no existen, utiliza valores por defecto.
-PG_HOST     = os.environ.get("PG_HOST", "postgres")
+PG_HOST     = os.environ.get("PG_HOST", "3.134.83.39")
 PG_PORT     = os.environ.get("PG_PORT", "5432")
-PG_DATABASE = os.environ.get("PG_DATABASE", "nova_db")
+PG_DATABASE = os.environ.get("PG_DATABASE", "nova")
 PG_USER     = os.environ.get("PG_USER", "nova_user")
-PG_PASSWORD = os.environ.get("PG_PASSWORD", "nova_password")
+PG_PASSWORD = os.environ.get("PG_PASSWORD", "nova123")
 
 
 # Cadena de conexión hacia PostgreSQL

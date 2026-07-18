@@ -12,7 +12,7 @@ from langchain_ollama import OllamaEmbeddings
 # Dirección del servidor Ollama
 OLLAMA_BASE_URL = os.environ.get(
     "OLLAMA_BASE_URL",
-    "http://ollama:11434"
+    "http://3.236.216.9:11434"
 )
 
 
@@ -26,7 +26,7 @@ OLLAMA_CHAT_MODEL = os.environ.get(
 # Modelo utilizado para crear embeddings
 OLLAMA_EMBEDDING_MODEL = os.environ.get(
     "OLLAMA_EMBEDDING_MODEL",
-    "mistral:latest"
+    "nomic-embed-text"
 )
 
 
