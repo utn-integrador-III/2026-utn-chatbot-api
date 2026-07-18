@@ -38,7 +38,7 @@ class Admin:
             full_name=row["full_name"],
             user_name=row["user_name"],
             email=row["email"],
-            password=row["password"],
+            password=row["password_hash"],
             role=row.get("role", AdminRole.ADMIN),
             created_at=row.get("created_at"),
         )

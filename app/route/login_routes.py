@@ -7,7 +7,7 @@ from flask import Blueprint
 from controllers.login_controller import signup, login, logout, delete_user
 from middleware.jwt_middleware import jwt_required, roles_required
 
-auth_bp = Blueprint("auth", __name__)
+login_bp = Blueprint("login", __name__)
 
 # ──────────────────────────────────────────────
 # RUTAS PÚBLICAS (sin autenticación)
@@ -17,14 +17,14 @@ auth_bp = Blueprint("auth", __name__)
 # Nota: en producción considera proteger este endpoint
 # para que solo un super_admin pueda crear nuevos admins.
 # Por ahora es público para permitir el primer registro del sistema.
-auth_bp.add_url_rule(
+login_bp.add_url_rule(
     "/signup",
     view_func=signup,
     methods=["POST"],
 )
 
 # POST /login → autenticación y emisión de token
-auth_bp.add_url_rule(
+login_bp.add_url_rule(
     "/login",
     view_func=login,
     methods=["POST"],
@@ -35,7 +35,7 @@ auth_bp.add_url_rule(
 # ──────────────────────────────────────────────
 
 # POST /logout → revoca el token actual
-auth_bp.add_url_rule(
+login_bp.add_url_rule(
     "/logout",
     view_func=jwt_required(logout),
     methods=["POST"],
@@ -45,7 +45,7 @@ auth_bp.add_url_rule(
 # Solo super_admin puede eliminar otras cuentas;
 # un admin estándar solo puede eliminar la suya propia
 # (la lógica de self-vs-other vive en el service)
-auth_bp.add_url_rule(
+login_bp.add_url_rule(
     "/delete_user",
     view_func=jwt_required(delete_user),
     methods=["DELETE"],
