@@ -12,7 +12,7 @@ from langchain_ollama import OllamaEmbeddings
 # Dirección del servidor Ollama
 OLLAMA_BASE_URL = os.environ.get(
     "OLLAMA_BASE_URL",
-    "http://3.236.216.9:11434"
+    "http://32.195.205.1391:11434"
 )
 
 
