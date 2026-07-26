@@ -1,70 +1,31 @@
 """
-app/repositories/pdf_repository.py
-Acceso a la tabla `pdfs`. Todo el SQL de documentos PDF vive aqui.
+app/routes/data_ingest_routes.py
+Definicion de rutas para la ingestión de documentos PDF.
+
+Endpoints:
+    POST /add_pdf → sube, procesa e indexa un PDF en pgvector
+    GET  /add_pdf → lista todos los PDFs indexados
+
+Las rutas protegidas requieren JWT valido (jwt_middleware).
 """
 
-from psycopg.rows import dict_row
+from flask import Blueprint
 
-from config.database import get_connection
-from model.pdf_model import Pdf
+from controllers.data_ingest_controller import add_pdf, list_pdfs
+from middleware.jwt_middleware import jwt_required
 
+data_ingest_bp = Blueprint("data_ingest", __name__)
 
-def save_pdf(
-    filename: str,
-    filepath: str,
-    uploaded_user: str | None = None,
-    total_pages: int | None = None,
-    total_chunks: int | None = None,
-) -> Pdf:
-    with get_connection() as conn:
-        with conn.cursor(row_factory=dict_row) as cur:
-            cur.execute(
-                """
-                INSERT INTO pdfs (uploaded_by, filename, filepath, total_pages, total_chunks)
-                VALUES (%s, %s, %s, %s, %s)
-                RETURNING *;
-                """,
-                (uploaded_user, filename, filepath, total_pages, total_chunks),
-            )
-            row = cur.fetchone()
-        conn.commit()
-    return Pdf.from_row(row)
+# POST /add_pdf: solo administradores autenticados pueden subir PDFs
+data_ingest_bp.add_url_rule(
+    "/add_pdf",
+    view_func=jwt_required(add_pdf),
+    methods=["POST"],
+)
 
-
-def update_pdf_chunks(pdf_id: str, total_chunks: int) -> None:
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(
-                "UPDATE pdfs SET total_chunks = %s WHERE id = %s;",
-                (total_chunks, pdf_id),
-            )
-        conn.commit()
-
-
-def find_pdf_by_filepath(filepath: str) -> Pdf | None:
-    with get_connection() as conn:
-        with conn.cursor(row_factory=dict_row) as cur:
-            cur.execute(
-                "SELECT * FROM pdfs WHERE filepath = %s;",
-                (filepath,),
-            )
-            row = cur.fetchone()
-    return Pdf.from_row(row) if row else None
-
-
-def get_pdf(pdf_id: str) -> Pdf | None:
-    """Busca un PDF por su UUID."""
-    with get_connection() as conn:
-        with conn.cursor(row_factory=dict_row) as cur:
-            cur.execute("SELECT * FROM pdfs WHERE id = %s;", (pdf_id,))
-            row = cur.fetchone()
-    return Pdf.from_row(row) if row else None
-
-
-def get_all_pdfs() -> list[Pdf]:
-    """Retorna todos los PDFs ordenados del mas reciente al mas antiguo."""
-    with get_connection() as conn:
-        with conn.cursor(row_factory=dict_row) as cur:
-            cur.execute("SELECT * FROM pdfs ORDER BY uploaded_at DESC;")
-            rows = cur.fetchall()
-    return [Pdf.from_row(r) for r in rows]
+# GET /list_pdfs: lista los PDFs indexados (protegido tambien por JWT)
+data_ingest_bp.add_url_rule(
+    "/list_pdfs",
+    view_func=jwt_required(list_pdfs),
+    methods=["GET"],
+)
