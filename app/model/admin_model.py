@@ -1,6 +1,7 @@
 """
 app/models/admin_model.py
 Representación de la tabla `admins`.
+-
 """
 from dataclasses import dataclass, field
 from datetime import datetime

@@ -2,6 +2,7 @@
 app/routes/login_routes.py
 Define las rutas del módulo de autenticación (puerto 7005).
 Aplica los middlewares correspondientes a cada endpoint.
+-
 """
 from flask import Blueprint
 from controllers.login_controller import signup, login, logout, delete_user
@@ -19,7 +20,7 @@ login_bp = Blueprint("login", __name__)
 # Por ahora es público para permitir el primer registro del sistema.
 login_bp.add_url_rule(
     "/signup",
-    view_func=signup,
+    view_func=jwt_required(roles_required("super_admin")(signup)),
     methods=["POST"],
 )
 

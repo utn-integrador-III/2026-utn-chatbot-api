@@ -2,6 +2,7 @@
 app/middleware/jwt_middleware.py
 Protege endpoints administrativos validando el JWT.
 Incluye control de acceso basado en roles (RBAC) y blacklist de tokens revocados.
+-
 """
 import jwt
 from functools import wraps

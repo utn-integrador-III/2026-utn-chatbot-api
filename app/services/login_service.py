@@ -2,6 +2,7 @@
 app/services/login_service.py
 Lógica de negocio para autenticación de administradores.
 Aquí vive: signup, login, logout y delete_user.
+-
 """
 import uuid
 import re
