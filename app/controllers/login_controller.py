@@ -2,6 +2,7 @@
 app/controllers/login_controller.py
 Capa HTTP para autenticación. Solo gestiona request/response.
 Toda la lógica de negocio vive en login_service.py.
+-
 """
 from flask import request, jsonify
 from services import login_service

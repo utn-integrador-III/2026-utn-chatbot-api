@@ -10,6 +10,7 @@ Estrategia:
 Almacenamiento:
   - En memoria (dict) para desarrollo/pruebas.
   - Reemplazar por Redis en producción para persistencia y escalabilidad horizontal.
+  -
 """
 import threading
 from datetime import datetime, timezone

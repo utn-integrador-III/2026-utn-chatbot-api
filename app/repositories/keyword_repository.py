@@ -1,6 +1,6 @@
 """
 app/repositories/keyword_repository.py
-Acceso a la tabla `chunk_keyword`. Reemplaza el string concatenado
+Acceso a la tabla `chunk_keywords`. Reemplaza el string concatenado
 que ChromaDB guardaba en metadatos por filas normalizadas.
 """
 
@@ -22,7 +22,7 @@ def save_keywords(chunk_id: str, keywords: list[str]) -> list[Keyword]:
             for keyword in clean:
                 cur.execute(
                     """
-                    INSERT INTO chunk_keyword (chunk_id, keyword)
+                    INSERT INTO chunk_keywords (chunk_id, keyword)
                     VALUES (%s, %s)
                     RETURNING *;
                     """,
@@ -38,7 +38,7 @@ def find_keywords_by_chunk(chunk_id: str) -> list[str]:
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
-                "SELECT keyword FROM chunk_keyword WHERE chunk_id = %s;",
+                "SELECT keyword FROM chunk_keywords WHERE chunk_id = %s;",
                 (chunk_id,),
             )
             rows = cur.fetchall()
@@ -51,7 +51,7 @@ def find_keywords_by_pdf(pdf_id: str) -> list[dict]:
             cur.execute(
                 """
                 SELECT ck.chunk_id, ck.keyword
-                FROM chunk_keyword ck
+                FROM chunk_keywords ck
                 INNER JOIN document_chunks dc ON dc.id = ck.chunk_id
                 WHERE dc.pdf_id = %s
                 ORDER BY ck.chunk_id;

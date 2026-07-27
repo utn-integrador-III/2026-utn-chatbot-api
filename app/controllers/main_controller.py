@@ -18,6 +18,6 @@ def save_chat():
         result = process_chat(user_prompt)
     except Exception as e:
         print(f"[main_controller] Error en process_chat: {e}")
-        abort(500)
+        return jsonify({"error": f"Error procesando el chat: {str(e)}"}), 500
 
     return jsonify(result)

@@ -8,6 +8,7 @@ from psycopg.rows import dict_row
 
 from config.database import get_connection
 from model.chunk_model import Chunk
+from pgvector import Vector
 
 
 def save_chunk(
@@ -32,6 +33,9 @@ def save_chunk(
                 (pdf_id, chunk_text, embedding, chunk_index, page_ref),
             )
             row = cur.fetchone()
+
+            if row.get("embedding") is not None:
+                row["embedding"] = row["embedding"].to_list()
         conn.commit()
     return Chunk.from_row(row)
 
@@ -56,24 +60,25 @@ def save_chunks_batch(pdf_id: str, chunks: list[dict]) -> list[Chunk]:
                         chunk.get("page_ref"),
                     ),
                 )
-                saved.append(Chunk.from_row(cur.fetchone()))
+                row = cur.fetchone()
+
+                if row.get("embedding") is not None:
+                    row["embedding"] = row["embedding"].to_list()
+                                
+                saved.append(Chunk.from_row(row))
         conn.commit()
 
     return saved
 
-
 def search_similar_chunks(query_embedding: list[float], limit: int = 5) -> list[dict]:
+    embedding_param = Vector(query_embedding)
 
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute(
                 """
                 SELECT
-                    dc.id,
-                    dc.pdf_id,
-                    dc.chunk_text,
-                    dc.chunk_index,
-                    dc.page_ref,
+                    dc.id, dc.pdf_id, dc.chunk_text, dc.chunk_index, dc.page_ref,
                     p.filename AS source,
                     dc.embedding <=> %s AS distance
                 FROM document_chunks dc
@@ -81,10 +86,9 @@ def search_similar_chunks(query_embedding: list[float], limit: int = 5) -> list[
                 ORDER BY dc.embedding <=> %s
                 LIMIT %s;
                 """,
-                (query_embedding, query_embedding, limit),
+                (embedding_param, embedding_param, limit),
             )
             return cur.fetchall()
-
 
 def get_chunks_by_pdf(pdf_id: str) -> list[Chunk]:
     """
