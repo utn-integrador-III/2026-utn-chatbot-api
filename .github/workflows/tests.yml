@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v7
 
@@ -33,13 +34,30 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-cov
 
-      - name: Run tests
-        run: |
-          pytest -v
+      - name: Run tests with coverage
+        env:
+          JWT_SECRET: test-secret-key
+          JWT_ALGORITHM: HS256
+          JWT_EXPIRATION_MINUTES: 60
 
-      - name: Generate coverage report
+          DATABASE_URL: postgresql://test:test@localhost:5432/test
+          PG_HOST: localhost
+          PG_PORT: 5432
+          PG_DATABASE: test
+          PG_USER: test
+          PG_PASSWORD: test
+
+          OLLAMA_BASE_URL: http://localhost:11434
+          OLLAMA_CHAT_MODEL: test-model
+          OLLAMA_EMBEDDING_MODEL: nomic-embed-text
+
+          FLASK_PORT: 5005
+
         run: |
-          pytest --cov=app --cov-report=term-missing --cov-report=xml
+          pytest -v \
+            --cov=app \
+            --cov-report=term-missing \
+            --cov-report=xml
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
