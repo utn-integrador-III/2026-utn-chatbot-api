@@ -16,3 +16,6 @@ psycopg-pool
 pgvector
 langchain-text-splitters
 python-dotenv
+bcrypt
+pytest
+pytest-cov
