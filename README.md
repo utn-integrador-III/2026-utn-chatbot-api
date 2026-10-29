@@ -107,9 +107,9 @@ Sigue las instrucciones indicadas en la sección:
 
 ---
 
-## 4. Documentación de la API Flask del ChatBot
+## 4. Documentación de la API del NOVA
 
-* https://documenter.getpostman.com/view/45666071/2sB3B8sDiw
+* https://documenter.getpostman.com/view/45666071/2sBY4SMJoH
 
 ---
 
