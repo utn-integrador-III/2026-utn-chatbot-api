@@ -38,7 +38,7 @@ El funcionamiento del proyecto se basa en una arquitectura cliente-servidor dond
 | Flask | Desarrollo de la API REST |
 | Ollama | Ejecución local de modelos LLM |
 | LangChain | Gestión del flujo conversacional e integración con IA |
-| ChromaDB | Almacenamiento y consultas vectoriales |
+| PGVector/PostgreSQL | Almacenamiento y consultas vectoriales |
 ---
 
 # Implementación de PY
